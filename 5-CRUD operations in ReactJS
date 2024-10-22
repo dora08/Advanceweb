@@ -1,0 +1,390 @@
+Steps to create the application
+
+npx create-react-app crud_app
+cd crud_app
+npm i react-bootstrap bootstrap@5.1.3 react-router-dom
+
+
+Edit files which are in src and components:
+
+
+
+
+app.js
+// Javascript object named array
+// with 3 key-values
+const array = [
+    {
+        id: "1",
+        Name: "Viraj",
+        Age: "23",
+    },
+    {
+        id: "2",
+        Name: "Deepak",
+        Age: "22",
+    },
+    {
+        id: "3",
+        Name: "Pratham",
+        Age: "23",
+    },
+];
+
+
+export default array;
+
+
+
+
+
+
+
+
+app.css
+
+/* App.css */
+.App {
+	text-align: center;
+  }
+  .geeks {
+	color: green;
+  }
+
+
+
+
+
+
+
+  array.js
+  // Filename - App.js
+
+import React from "react";
+import {
+	BrowserRouter as Router,
+	Route,
+	Routes,
+} from "react-router-dom";
+import "./App.css";
+import Create from "./components/Create";
+import Edit from "./components/Edit";
+import Home from "./components/Home";
+
+function App() {
+	return (
+		<div className="App">
+			<h1 className="geeks">GeeksforGeeks </h1>
+			<h3>CRUD App</h3>
+			<Router>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route
+						path="/create"
+						element={<Create />}
+					/>
+					<Route
+						path="/edit"
+						element={<Edit />}
+					/>
+				</Routes>
+			</Router>
+		</div>
+	);
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+Edit.js
+import React, { useEffect, useState } from "react";
+import { Button, Form } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import array from "./array";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+
+function Edit() {
+    // Here usestate has been used in order
+    // to set and get values from the jsx
+    const [name, setname] = useState("");
+    const [age, setage] = useState("");
+    const [id, setid] = useState("");
+
+
+    // Used for navigation with logic in javascript
+    let history = useNavigate();
+
+
+    // Getting an index of an entry with an id
+    let index = array
+        .map(function (e) {
+            return e.id;
+        })
+        .indexOf(id);
+
+
+    // Function for handling the edit and
+    // pushing changes of editing/updating
+    const handelSubmit = (e) => {
+        // Preventing from reload
+        e.preventDefault();
+        if (name == "" || age == "") {
+            alert("invalid input");
+            return;
+        }
+
+
+        // Getting an index of an array
+        let a = array[index];
+
+
+        // Putting the value from the input
+        // textfield and replacing it from
+        // existing for updation
+        a.Name = name;
+        a.Age = age;
+   
+
+
+        // Redirecting to main page
+        history("/");
+    };
+
+
+    // Useeffect take care that page will
+    // be rendered only once
+    useEffect(() => {
+        setname(localStorage.getItem("Name"));
+        setage(localStorage.getItem("Age"));
+        setid(localStorage.getItem("id"));
+    }, []);
+
+
+    return (
+        <div>
+            <Form
+                className="d-grid gap-2"
+                style={{ margin: "5rem" }}
+            >
+                {/* setting a name from the
+                    input textfiled */}
+                <Form.Group
+                    className="mb-3"
+                    controlId="formBasicEmail"
+                >
+                    <Form.Control
+                        value={name}
+                        onChange={(e) =>
+                            setname(e.target.value)
+                        }
+                        type="text"
+                        placeholder="Enter Name"
+                    />
+                </Form.Group>
+
+
+                {/* setting a age from the input textfiled */}
+                <Form.Group
+                    className="mb-3"
+                    controlId="formBasicPassword"
+                >
+                    <Form.Control
+                        value={age}
+                        onChange={(e) =>
+                            setage(e.target.value)
+                        }
+                        type="number"
+                        placeholder="Age"
+                    />
+                </Form.Group>
+
+
+                {/* Hadinling an onclick event
+                    running an edit logic */}
+                <Button
+                    onClick={(e) => handelSubmit(e)}
+                    variant="primary"
+                    type="submit"
+                    size="lg"
+                >
+                    Update
+                </Button>
+
+
+                {/* Redirecting to main page after editing */}
+                <Link className="d-grid gap-2" to="/">
+                    <Button variant="warning" size="lg">
+                        Home
+                    </Button>
+                </Link>
+            </Form>
+        </div>
+    );
+}
+
+
+export default Edit;
+
+
+
+
+
+
+
+
+home.js
+// Filename - components/Home.js
+
+import React from "react";
+import { Button, Table } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import array from "./array";
+import { Link, useNavigate } from "react-router-dom";
+
+
+function Home() {
+    let history = useNavigate();
+
+
+    // You may skip this part if you're
+    // using react-context api or redux
+    function setID(id, name, age) {
+        localStorage.setItem("id", id);
+        localStorage.setItem("Name", name);
+        localStorage.setItem("Age", age);
+    }
+
+
+    // Deleted function - functionality
+    // for deleting the entry
+    function deleted(id) {
+        let index = array
+            .map(function (e) {
+                return e.id;
+            })
+            .indexOf(id);
+
+
+        // deleting the entry with index
+        array.splice(index, 1);
+
+
+        // We need to re-render the page for getting
+        // the results so redirect to same page.
+        history("/");
+    }
+
+
+    return (
+        <div style={{ margin: "5rem" }}>
+            <Table striped bordered hover size="sm">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/* Mapping though every element
+                        in the array and showing the
+                        data in the form of table */}
+                    {array.map((item) => {
+                        return (
+                            <tr>
+                                <td>{item.Name}</td>
+                                <td>{item.Age}</td>
+
+
+                                {/* getting theid,name, and
+                                    age for storing these
+                                    value in the jsx with
+                                    onclick event */}
+                                <td>
+                                    <Link to={`/edit`}>
+                                        <Button
+                                            onClick={(e) =>
+                                                setID(
+                                                    item.id,
+                                                    item.Name,
+                                                    item.Age
+                                                )
+                                            }
+                                            variant="info"
+                                        >
+                                            Update
+                                        </Button>
+                                    </Link>
+                                </td>
+
+
+                                {/* Using thr deleted function passing
+                                    the id of an entry */}
+                                <td>
+                                    <Button
+                                        onClick={(e) =>
+                                            deleted(item.id)
+                                        }
+                                        variant="danger"
+                                    >
+                                        Delete
+                                    </Button>
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </Table>
+
+
+            {/* Button for redirecting to create page for
+                insertion of values */}
+            <Link className="d-grid gap-2" to="/create">
+                <Button variant="warning" size="lg">
+                    Create
+                </Button>
+            </Link>
+        </div>
+    );
+}
+
+
+export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
