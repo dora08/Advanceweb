@@ -1,0 +1,30 @@
+C:\Users\Your Name>npm install -g create-react-app
+C:\Users\Your Name>npx create-react-app myfirstreact
+C:\Users\Your Name>cd myfirstreact
+C:\Users\Your Name\myfirstreact>npm start
+
+Open folder from location and inside src ---> edit index.js
+
+import React from 'react';
+import ReactDom  from  'react-dom';
+
+function Hello(){
+    return (
+    <div>
+        <Welcome/>
+        <Abc/>
+
+    </div>
+
+);
+
+}
+    const Welcome = () => <h1> Hello World</h1>
+    const Abc = () => <p> Welcome </p>
+
+ReactDom.render(<Hello/>, document.getElementById('root')
+);
+
+
+
+again run npm start to see output
