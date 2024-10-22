@@ -4,6 +4,8 @@ C:\Users\Your Name>cd myfirstreact
 C:\Users\Your Name\myfirstreact>npm start
 
 
+edit index.js file in src
+
 
 import React from 'react';  
 import ReactDOM from 'react-dom';
