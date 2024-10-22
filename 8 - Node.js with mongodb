@@ -1,0 +1,284 @@
+Prac8Nodejs with Mongodb
+
+Open browser and create mongodb atlas account
+Login 
+Select free M0 
+give name as default- Cluster0
+Give username and password (keep that in mind) or just can just create cluster then go to Quickstart (left side) there you can set username and password 
+
+Go to the home page your database(cluster0)
+Under cluster0 you will see connect button click on it
+Select Drivers
+Copy the 3rd point code and paste that code in your mongodb index.js file code
+#mongodb+srv://username:password@cluster0.zhnjo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
+
+#open vs code and type
+npm install -g create-react-app
+npx create-react-app prac8
+cd prac8
+npm install express mongoose
+
+
+
+
+#create a file name index.js in root directory
+Index.js
+const express = require('express');
+const mongoose = require('mongoose');
+const User = require('./models/user'); // Import the User model
+
+const app = express(); // Create an Express app
+
+app.use(express.json()); // Middleware to parse JSON request bodies
+
+// Route to get all users
+app.get('/', async (req, res) => {
+    try {
+        const users = await User.find(); // Retrieve all users from the database
+        return res.json(users); // Return users as JSON
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+// Route to create new users
+app.post('/', async (req, res) => {
+    try {
+        const body = req.body; // Get the request body
+        console.log(body); // Log the request body for debugging
+
+        // Create new users in bulk
+        const createdUsers = await Promise.all(
+            body.map(async (user) => {
+                const newUser = new User(user); // Create a new user instance
+                return await newUser.save(); // Save the new user to the database
+            })
+        );
+
+        return res.json(createdUsers); // Return the newly created users
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+// Connect to MongoDB and start the server
+mongoose.connect(
+    'mongodb+srv://123demo:KaSmVjwZKpx9k3fB@cluster0.zhnjo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+//mongodb+srv://username:password@cluster0.zhnjo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
+    { retryWrites: true, appName: "Cluster0" } // Connection options
+)
+.then(() => {
+    app.listen(8081, () => {
+        console.log('Server is running on port 8081'); // Log server startup
+    });
+})
+.catch(error => {
+    console.error('MongoDB connection error:', error.message);
+});
+
+
+
+
+#create a folder with name models inside create user.js
+models/user.js
+const mongoose = require("mongoose");
+
+// Define the user schema
+const userSchema = new mongoose.Schema({
+    firstName: String,
+    lastName: String,
+    dateOfBirth: {
+        type: Date,
+        required: false // optional field
+    },
+    address: String
+});
+// Create the User model from the schema
+const User = mongoose.model('User', userSchema);
+
+// Export the model for use in other files
+module.exports = User;
+ 
+
+
+
+
+Run the Application: ‘node index.js’
+open POSTMAN
+#To create new user select 'POST' and type http://localhost:8081/
+#Go to body select 'raw'
+#Choose JSON from dropbox and type
+[
+{
+"firstname":"john",
+"lastname":"Doe",
+"dateofBirth":"1998-01-01",
+"address":"123 Main st"
+},
+{
+"firstname":"hame",
+"lastname":"swith",
+"dateofBirth":"1995-08-01",
+"address":"256 stn"
+
+}
+
+]
+
+
+#To get all user
+select "GET" and type url- http://localhost:8081/
+#press send
+
+
+
+
+
+
+
+
+
+
+
+
+
+my file 
+[12:48 am, 23/10/2024] Janhavi ❤️: Login mongo atlas
+mo free
+close first and go on quickstart 
+add user pass (save it on txt)  and create user
+atlas ---> proj 0 --->Connect
+Drivers  --->Driver -->Node.js
+now wait 
+copy code
+and paste it in index.js (src) with ur id and pass
+
+
+Nttwork access -->allow access from anywhere -->confirm
+
+
+Open vs 
+Open a rikami folder
+Enter on terminal 
+C:\Users\Your Name>npm install -g create-react-app
+C:\Users\Your Name>npx create-react-app mongodb
+C:\Users\Your Name>cd mongodb
+
+
+npm install mongoose
+
+vs ch aat mongodb ch aat model(foler) bnva  tyacha aat user.js(file)
+
+cd  .mongodb
+node index.js
+
+
+
+
+admin
+password123#
+
+
+
+mongodb://admin:<db_password>@<hostname>/?ssl=true&replicaSet=atlas-fag2gi-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0
+[1:23 am, 23/10/2024] Janhavi ❤️: Sign up and login mongodb
+M0--->free->deployment
+Quickstart-->create id pass and save it
+admin
+pass123#
+Go to network access --->add ip adress-->allow access-->done
+Database-->Conect-->Drivers-->Node.js-->wait until code comes then copy it
+
+
+
+Create a folder called practical,inside it make another called mongodb
+Now open practical in vs
+npm install -g create-react-app
+npx create-react-app mongodb
+right click on mongodb and create index.js
+write below code in it
+
+Index.js
+const express = require('express');
+const mongoose = require('mongoose');
+const User = require('./models/user'); // Import the User model
+
+const app = express(); // Create an Express app
+
+app.use(express.json()); // Middleware to parse JSON request bodies
+
+// Route to get all users
+app.get('/', async (req, res) => {
+    try {
+        const users = await User.find(); // Retrieve all users from the database
+        return res.json(users); // Return users as JSON
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+// Route to create new users
+app.post('/', async (req, res) => {
+    try {
+        const body = req.body; // Get the request body
+        console.log(body); // Log the request body for debugging
+
+        // Create new users in bulk
+        const createdUsers = await Promise.all(
+            body.map(async (user) => {
+                const newUser = new User(user); // Create a new user instance
+                return await newUser.save(); // Save the new user to the database
+            })
+        );
+
+        return res.json(createdUsers); // Return the newly created users
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+// Connect to MongoDB and start the server
+mongoose.connect(
+    'mongodb+srv://123demo:KaSmVjwZKpx9k3fB@cluster0.zhnjo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+//mongodb+srv://username:password@cluster0.zhnjo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
+    { retryWrites: true, appName: "Cluster0" } // Connection options
+)
+.then(() => {
+    app.listen(8081, () => {
+        console.log('Server is running on port 8081'); // Log server startup
+    });
+})
+.catch(error => {
+    console.error('MongoDB connection error:', error.message);
+});
+
+
+Now,right cllick on mongodb
+create folder -->modules
+inside modules--->user.js
+Now write user.js code
+
+models/user.js
+const mongoose = require("mongoose");
+
+// Define the user schema
+const userSchema = new mongoose.Schema({
+    firstName: String,
+    lastName: String,
+    dateOfBirth: {
+        type: Date,
+        required: false // optional field
+    },
+    address: String
+});
+// Create the User model from the schema
+const User = mongoose.model('User', userSchema);
+
+// Export the model for use in other files
+module.exports = User;
