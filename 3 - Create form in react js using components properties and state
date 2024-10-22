@@ -1,0 +1,49 @@
+C:\Users\Your Name>npm install -g create-react-app
+C:\Users\Your Name>npx create-react-app myfirstreact
+C:\Users\Your Name>cd myfirstreact
+C:\Users\Your Name\myfirstreact>npm start
+
+
+
+import React from 'react';  
+import ReactDOM from 'react-dom';
+import { render } from 'react-dom/client';
+class MyForm extends React.Component {
+   constructor (props) {
+    super (props);
+    this.state = {
+      username: '',
+      age: null
+    };
+  }  
+  mysubmithandler = (event) => {
+    event.preventDefault();
+    let age = this.state.age;
+    if(!Number(age))
+      {
+        alert("Please enter a valid age");
+      };
+  }    
+  myChangeHandler = (event) => {
+    let nam = event.target.name;
+    let val = event.target.value;
+    this.setState({[nam]:val});
+  }
+  render() {
+    return (
+    <form onSubmit={this.mysubmithandler}>
+      <h1>My name is {this.state.username} {this.state.age}</h1>
+      <p>Enter your name</p>
+      <input type='text' name='username' onChange={this.myChangeHandler} />
+      <p>Enter your age:</p>
+      <input type='text' name='age' onChange={this.myChangeHandler} />
+      <br/>
+      <br/>
+      <input type='submit' />
+      </form>
+      );
+    }
+}
+
+// For React 18 and later
+ReactDOM.render (<MyForm />, document.getElementById('root'));
