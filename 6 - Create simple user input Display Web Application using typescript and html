@@ -1,3 +1,53 @@
-Create simple folder Called User
-Open it in vs code
+Create simple folder manually Called Practical
+open it in vs code
+now right click on Practical and add one more folder called User
+inside user create
+1)index.html
+2)app.ts
 
+
+Code for index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>First Web Page</title>
+  <style>
+    body {
+      text-align: center; /* Aligns all content to the center */
+    }
+  </style>
+</head>
+
+<body>
+  <h1>User Input Web Page</h1>
+  <p>Enter a number to print:</p>
+  <input type="number" id="num1" placeholder="Number1">
+  <button id="printBtn">Print</button>
+  <h3>You Entered: <output id="enteredNumber"></output></h3>
+  <script src="./app.js"></script>
+</body>
+</html>
+
+
+
+code for app.ts
+const number1 = document.getElementById("num1") as HTMLInputElement;
+const printButton = document.getElementById("printBtn") as HTMLButtonElement;
+const printValue = document.getElementById("enteredNumber") as HTMLOutputElement;
+
+function printEnteredValue(): void {
+  const num = parseFloat(number1.value); // Corrected variable name 'numbi' to 'num'
+  printValue.textContent = num.toString();
+}
+
+printButton.addEventListener("click", printEnteredValue);
+
+
+now go the folder that is User
+open cmd
+enter tsc app.ts
+
+open index.html 
+output
+
+tsc app.ts
