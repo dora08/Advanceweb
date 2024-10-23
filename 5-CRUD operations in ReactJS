@@ -15,11 +15,70 @@ d)Home.js
 
 
 Edit files which are in src and components:
+Total 6
 
 
 
 
-app.js
+App.js
+
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
+import "./App.css";
+import Create from "./components/Create";
+import Edit from "./components/Edit";
+import Home from "./components/Home";
+
+
+function App() {
+  return (
+    <div className="App">
+      <h1 className="geeks">GeeksforGeeks </h1>
+      <h3>CRUD App</h3>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/create"
+            element={<Create />}
+          />
+          <Route
+            path="/edit"
+            element={<Edit />}
+          />
+        </Routes>
+      </Router>
+    </div>
+  );
+}
+
+
+export default App;
+
+
+
+
+
+
+
+
+App.css
+/* App.css */
+.App {
+  text-align: center;
+}
+.geeks {
+  color: green;
+}
+
+
+
+
+array.js
 // Javascript object named array
 // with 3 key-values
 const array = [
@@ -47,72 +106,7 @@ export default array;
 
 
 
-
-
-
-app.css
-
-/* App.css */
-.App {
-	text-align: center;
-  }
-  .geeks {
-	color: green;
-  }
-
-
-
-
-
-
-
-  array.js
-  // Filename - App.js
-
-import React from "react";
-import {
-	BrowserRouter as Router,
-	Route,
-	Routes,
-} from "react-router-dom";
-import "./App.css";
-import Create from "./components/Create";
-import Edit from "./components/Edit";
-import Home from "./components/Home";
-
-function App() {
-	return (
-		<div className="App">
-			<h1 className="geeks">GeeksforGeeks </h1>
-			<h3>CRUD App</h3>
-			<Router>
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route
-						path="/create"
-						element={<Create />}
-					/>
-					<Route
-						path="/edit"
-						element={<Edit />}
-					/>
-				</Routes>
-			</Router>
-		</div>
-	);
-}
-
-export default App;
-
-
-
-
-
-
-
-
-
-Edit.js
+edit.js
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -249,8 +243,7 @@ export default Edit;
 
 
 
-
-home.js
+Home.js
 // Filename - components/Home.js
 
 import React from "react";
@@ -374,11 +367,7 @@ export default Home;
 
 
 
-
-
-
 Create.js
-
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -486,12 +475,3 @@ export default Create;
 
 
 
-
-
-
-
-
-
-
-  
-  
