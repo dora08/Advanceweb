@@ -4,6 +4,15 @@ npx create-react-app crud_app
 cd crud_app
 npm i react-bootstrap bootstrap@5.1.3 react-router-dom
 
+components src ch aat bnlli tr thik
+nhitr right click on src and create folder called components
+inside that add files such as
+a)array.js
+b)Create.js
+c)Edit.js
+d)Home.js
+
+
 
 Edit files which are in src and components:
 
